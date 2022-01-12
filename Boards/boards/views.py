@@ -1,5 +1,9 @@
-from django.http import HttpResponse
+# django
+from django.shortcuts import render
+# internal
+from .models import Board
 
 
 def home(request):
-    return HttpResponse('home')
+    boards = Board.objects.all()
+    return render(request, 'home.html', {'boards': boards})
