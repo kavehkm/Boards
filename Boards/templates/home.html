@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>All Boards</h1>
+{% if boards %}
+<ul>
+{% for board in boards %}
+    <li><b>{{ board.name }}</b>: {{ board.description }}</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No boards</p>
+{% endif %}
+{% endblock %}
