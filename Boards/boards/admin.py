@@ -1,3 +1,9 @@
+# django
 from django.contrib import admin
+# internal
+from .models import Board, Topic, Post
 
-# Register your models here.
+
+admin.site.register(Board)
+admin.site.register(Topic)
+admin.site.register(Post)
