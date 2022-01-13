@@ -6,17 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %} | B o a r d s</title>
+    <!-- style block -->
     {% block style %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     {% endblock %}
+    <!-- end style block -->
 </head>
 <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">B o a r d s</a>
+        </div>
+    </nav>
+    <!-- end navbar -->
     <div class="container">
+        <!-- breadcrumb -->
+        <ol class="breadcrumb my-4">
+        {% block bread %}
+        {% endblock %}
+        </ol>
+        <!-- end breadcrumb -->
+        <!-- content block -->
         {% block content %}
         {% endblock %}
+        <!-- end content block -->
     </div>
+    <!-- js block -->
     {% block js %}
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     {% endblock %}
+    <!-- end js block -->
 </body>
 </html>

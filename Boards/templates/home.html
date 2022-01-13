@@ -2,10 +2,11 @@
 
 {% block title %}Home{% endblock %}
 
+{% block bread %}
+<li class="breadcrumb-item active">Boards</li>
+{% endblock %}
+
 {% block content %}
-<ol class="breadcrumb my-4">
-    <li class="breadcrumb-item active">Boards</li>
-</ol>
 <table class="table">
     <thead class="thead-inverse">
         <tr>
@@ -19,7 +20,7 @@
         {% for board in boards %}
         <tr>
             <td>
-                {{ board.name }}
+                <a href="{{ board.absolute_url }}">{{ board.name | title }}</a>
                 <small class="text-muted d-block">{{ board.description }}</small>
             </td>
             <td class="align-middle">0</td>
