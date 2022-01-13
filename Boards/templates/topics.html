@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ board.name | title }}{% endblock %}
+
+{% block bread %}
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+<li class="breadcrumb-item active">{{ board.name | title }}</li>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
