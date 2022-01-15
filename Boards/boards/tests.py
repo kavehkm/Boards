@@ -50,3 +50,27 @@ class BoardTopicsTests(TestCase):
     def test_board_topics_url_resolves(self):
         view = resolve('/boards/1')
         self.assertEqual(view.func, views.board_topics)
+
+
+class NewTopicTests(TestCase):
+    """New Topic View Tests"""
+    def setUp(self):
+        data = {
+            'name': 'test board',
+            'description': 'test description'
+        }
+        self.board = Board.objects.create(**data)
+
+    def test_new_topic_view_success_status_code(self):
+        url = reverse('new_topic', kwargs={'pk': self.board.pk})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_new_topic_view_not_found_status_code(self):
+        url = reverse('new_topic', kwargs={'pk': 666})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_new_topic_url_resolves(self):
+        view = resolve('/boards/1/new')
+        self.assertEqual(view.func, views.new_topic)
