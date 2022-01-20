@@ -1,5 +1,4 @@
 # django
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 # internal
@@ -20,9 +19,9 @@ def board_topics(request, pk):
 @login_required
 def new_topic(request, pk):
     board = get_object_or_404(Board, pk=pk)
-    user = User.objects.first()
     if request.method == 'POST':
         form = NewTopicForm(request.POST)
+        user = request.user
         if form.is_valid():
             # create topic
             topic = Topic.objects.create(
