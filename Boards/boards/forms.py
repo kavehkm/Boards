@@ -10,3 +10,12 @@ class NewTopicForm(forms.Form):
         widget=forms.Textarea(),
         help_text='The max length of the text is 4000'
     )
+
+
+class PostForm(forms.Form):
+    """New Post Form"""
+    message = forms.CharField(
+        max_length=4000,
+        widget=forms.Textarea(),
+        help_text='The max length of the text is 4000'
+    )
