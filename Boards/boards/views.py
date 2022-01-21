@@ -1,10 +1,23 @@
 # django
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # internal
 from django.db.models import Count
 from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
+
+
+def pager(request, query_set):
+    page = request.GET.get('page', 1)
+    paginator = Paginator(query_set, 10)
+    try:
+        current_page = paginator.page(page)
+    except PageNotAnInteger:
+        current_page = paginator.page(1)
+    except EmptyPage:
+        current_page = paginator.page(paginator.num_pages)
+    return current_page
 
 
 def home(request):
@@ -14,7 +27,8 @@ def home(request):
 
 def board_topics(request, pk):
     board = get_object_or_404(Board, pk=pk)
-    topics = board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
+    query_set = board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
+    topics = pager(request, query_set)
     return render(request, 'topics.html', {'board': board, 'topics': topics})
 
 
@@ -48,7 +62,8 @@ def topic_posts(request, pk, topic_pk):
     # increase views value and save
     topic.views += 1
     topic.save()
-    return render(request, 'topic_posts.html', {'topic': topic})
+    posts = pager(request, topic.posts.order_by('created_at'))
+    return render(request, 'topic_posts.html', {'topic': topic, 'posts': posts})
 
 
 @login_required
