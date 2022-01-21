@@ -11,6 +11,11 @@
 <div class="mb-4">
     <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">New topic</a>
 </div>
+
+{% with page=topics %}
+{% include 'includes/pagination.html' %}
+{% endwith %}
+
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -35,4 +40,9 @@
         {% endfor %}
     </tbody>
 </table>
+
+{% with page=topics %}
+{% include 'includes/pagination.html' %}
+{% endwith %}
+
 {% endblock %}
